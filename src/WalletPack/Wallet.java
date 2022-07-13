@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
+import WalletPack.ReasonTable;
 
 public class Wallet extends JFrame implements ActionListener{
     private double uan = 0;
@@ -11,7 +13,12 @@ public class Wallet extends JFrame implements ActionListener{
     private double dollars = 0;
     private double pln = 0;
 
+    ArrayList<String> spendReason = new ArrayList<String>();
+    ArrayList<String> earnReason = new ArrayList<String>();
+
     private final String path = "C:\\WalletSource\\Source.txt";
+    private final String SpendReasonFilePath = "C:\\WalletSource\\SpendReasons.txt";
+    private final String EarnReasonFilePath = "C:\\WalletSource\\EarnReasons.txt";
 
     JLabel uanLab;
     JLabel euroLab;
@@ -21,13 +28,24 @@ public class Wallet extends JFrame implements ActionListener{
     JLabel earnLab;
     JLabel spendLab;
 
+    JLabel SpendReasonLabel;
+    JLabel EarnReasonLabel;
+
     JPanel leftPanel;
     JPanel rightPanel;
     JPanel earnPanel;
     JPanel spendPanel;
+    JPanel spendReasonPanel;
+    JPanel earnReasonPanel;
 
     JTextField spendTF;
     JTextField earnTF;
+
+    JTextField spendReasonTF;
+    JTextField earnReasonTF;
+
+    JComboBox<String> spendReasonCB;
+    JComboBox<String> earnReasonCB;
 
     JButton spendButton;
     JButton earnButton;
@@ -85,6 +103,8 @@ public class Wallet extends JFrame implements ActionListener{
             System.out.println(value);
         }
 
+
+
         //Labels
         uanLab = new JLabel("Гривні - " + uan, SwingConstants.CENTER);
         euroLab = new JLabel("Євро - " + euro, SwingConstants.CENTER);
@@ -92,6 +112,9 @@ public class Wallet extends JFrame implements ActionListener{
         plnLab = new JLabel("Злоті - " + pln, SwingConstants.CENTER);
         spendLab = new JLabel("Витрати");
         earnLab = new JLabel("Заробіток");
+
+        SpendReasonLabel = new JLabel("Причина");
+        EarnReasonLabel = new JLabel("Причина");
         //Labels
 
         //Panels
@@ -99,12 +122,22 @@ public class Wallet extends JFrame implements ActionListener{
         rightPanel = new JPanel();
         spendPanel = new JPanel();
         earnPanel = new JPanel();
+
+        spendReasonPanel = new JPanel();
+        earnReasonPanel = new JPanel();
         //Panels
 
         //TextFields
         spendTF = new JTextField();
         earnTF = new JTextField();
+
+        spendReasonTF = new JTextField();
+        earnReasonTF = new JTextField();
         //TextFields
+
+        //Comboboxes
+        spendReasonCB = new JComboBox<String>();
+        //Comboboxes
 
         //RadioButtons
         spendUanRB = new JRadioButton("Грн");
@@ -154,10 +187,13 @@ public class Wallet extends JFrame implements ActionListener{
         //SetColors
         leftPanel.setBackground(Color.GRAY);
         rightPanel.setBackground(Color.darkGray);
+
+        spendReasonPanel.setBackground(Color.PINK);
+        earnReasonPanel.setBackground(Color.PINK);
         //SetColors
 
 
-        rightPanel.setLayout(new GridLayout(2, 1));
+        rightPanel.setLayout(new GridLayout(2, 2));
 
         spendLab.setBounds(50, 50, 70, 40);
         spendTF.setBounds(50, 80, 130, 30);
@@ -173,13 +209,11 @@ public class Wallet extends JFrame implements ActionListener{
         spendPanel.add(spendEuroRB);
         spendPanel.add(spendDollarsRB);
         spendPanel.add(spendPlnRB);
-
         spendPanel.setLayout(null);
 
         earnPanel.add(earnLab);
         earnPanel.add(earnTF);
         earnPanel.add(earnButton);
-
         earnPanel.add(earnUanRB);
         earnPanel.add(earnEuroRB);
         earnPanel.add(earnDollarsRB);
@@ -187,7 +221,9 @@ public class Wallet extends JFrame implements ActionListener{
         earnPanel.setLayout(null);
 
         rightPanel.add(spendPanel);
+        rightPanel.add(spendReasonPanel);
         rightPanel.add(earnPanel);
+        rightPanel.add(earnReasonPanel);
 
         leftPanel.add(uanLab);
         leftPanel.add(dollarsLab);
@@ -195,6 +231,9 @@ public class Wallet extends JFrame implements ActionListener{
         leftPanel.add(plnLab);
 
         leftPanel.setLayout(new GridLayout(4, 1));
+
+        spendReasonPanel.add(SpendReasonLabel);
+
 
 
         //MAIN FRAME
@@ -205,7 +244,7 @@ public class Wallet extends JFrame implements ActionListener{
         setLayout(new GridLayout(1, 2));
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Set the standard JFrame close button operation
-        setSize(500, 450);                            //Pass in variables to size the JFrame, frm
+        setSize(1000, 720);                            //Pass in variables to size the JFrame, frm
         setLocationRelativeTo(null);                    //Locate frm relative to the screen center
         setVisible(true);                               //Make JFrame frm visible
     }
